@@ -1,62 +1,7 @@
-// Questão 1: Retorna o último elemento de uma lista
-fun <T> ultimo(lista: List<T>): T = lista.last()
+/*
+questões 9, 10, 11, 12 e 13
+*/
 
-
-// Questão 2: Retorna o penúltimo elemento de uma lista
-fun <T> penultimo(lista: List<T>): T = lista[lista.size - 2]
-
-
-// Questão 3: Verifica se a lista é um palíndromo
-fun <T> ehPalindromo(lista: List<T>): Boolean = lista == lista.reversed()
-
-
-// Questão 4: Codifica uma lista usando run-length encoding
-fun <T> codificar(lista: List<T>): List<Pair<Int, T>> {
-    if (lista.isEmpty()) return emptyList()
-    val resultado = mutableListOf<Pair<Int, T>>()
-    var contador = 1
-    var anterior = lista.first()
-    for (i in 1 until lista.size) {
-        val atual = lista[i]
-        if (atual == anterior) {
-            contador++
-        } else {
-            resultado.add(contador to anterior)
-            anterior = atual
-            contador = 1
-        }
-    }
-    resultado.add(contador to anterior)
-    return resultado
-}
-
-// Questão 5: Decodifica uma lista codificada com run-length encoding
-fun <T> decodificar(listaCodificada: List<Pair<Int, T>>): List<T> =
-    listaCodificada.flatMap { (contador, valor) -> List(contador) { valor } }
-
-
-// Questão 6: Verifica se um número é primo
-fun Int.ehPrimo(): Boolean =
-    this > 1 && (2..kotlin.math.sqrt(this.toDouble()).toInt()).all { this % it != 0 }
-
-
-// Questão 7: Retorna o maior divisor comum usando o algoritmo de Euclides
-fun mdc(a: Int, b: Int): Int {
-    var x = a
-    var y = b
-    while (y != 0) {
-        val resto = x % y
-        x = y
-        y = resto
-    }
-    return x
-}
-
-// Questão 8: Lista os números primos dentro de um intervalo
-fun listarPrimos(intervalo: IntRange): List<Int> = intervalo.filter { it.ehPrimo() }
-
-
-// Questão 9: Insere um valor na árvore binária de busca
 sealed interface Arvore<out T>
 
 data class No<out T>(
@@ -74,7 +19,7 @@ object Vazio : Arvore<Nothing> {
     override fun toString() = "."
 }
 
-//Questão 09: Função par aadicionar nós nas árvores
+//Questão 09: Função par adicionar nós nas árvores
 fun <T : Comparable<T>> Arvore<T>.inserir(valor: T): Arvore<T> = when (this) {
     is Vazio -> No(valor)
     is No -> if (valor < this.valor)
@@ -146,18 +91,7 @@ fun String.paraArvore(): Arvore<String> {
 
     return parse()
 }
-
 fun main() {
-    println("Questões 1 a 8")
-    println("Último: " + ultimo(listOf(1, 1, 2, 3, 5, 8)))
-    println("Penúltimo: " + penultimo(listOf(1, 1, 2, 3, 5, 8)))
-    println("Palíndromo: " + ehPalindromo(listOf(1, 2, 3, 2, 1)))
-    println("Codificar: " + codificar("aaaabccaadeeee".toList()))
-    println("Decodificar: " + decodificar(listOf(4 to 'a', 1 to 'b', 2 to 'c', 2 to 'a', 1 to 'd', 4 to 'e')))
-    println("É primo: " + 7.ehPrimo())
-    println("MDC: " + mdc(36, 63))
-    println("Primos no intervalo: " + listarPrimos(7..31))
-
     println("\nQuestões 9 a 13")
     val arvore1 = No("x", No("x"), Vazio)
     println("Quantidade de folhas: " + arvore1.quantidadeFolhas())
